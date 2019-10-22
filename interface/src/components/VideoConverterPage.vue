@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "VideoConverterPage",
   data() {
@@ -42,7 +44,25 @@ export default {
     };
   },
   methods: {
-    convert() {}
+    convert() {
+      const url = "localhost:5000";
+
+      let formData = new FormData();
+      formData.append("file", this.file);
+
+      axios
+        .post(url, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
+        .then(response => {
+          console.log(response);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
   }
 };
 </script>
